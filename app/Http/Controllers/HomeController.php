@@ -13,16 +13,24 @@ class HomeController extends Controller
 {
   public function index()
   {
-    $totalUrls = Url::count();
-    $totalUsers = User::count();
-    $totalClickCountToday = Url::whereDate('created_at', Carbon::today())
-      ->sum('click_count');
-    return view('index', compact('totalUrls', 'totalUsers', 'totalClickCountToday'));
+    try {
+      $totalUrls = Url::count();
+      $totalUsers = User::count();
+      $totalClickCountToday = Url::whereDate('created_at', Carbon::today())
+        ->sum('click_count');
+      return view('index', compact('totalUrls', 'totalUsers', 'totalClickCountToday'));
+    } catch (\Throwable $th) {
+      return redirect()->back()->withInput()->with('error', 'Something Wrong,Please Try Again');
+    }
   }
 
   public function dashboard()
   {
-    $urls = Url::where('user_id', Auth::user()->id)->get();
-    return view('dashboard', compact('urls'));
+    try {
+      $urls = Url::where('user_id', Auth::user()->id)->get();
+      return view('dashboard', compact('urls'));
+    } catch (\Throwable $th) {
+      return redirect()->back()->withInput()->with('error', 'Something Wrong,Please Try Again');
+    }
   }
 }

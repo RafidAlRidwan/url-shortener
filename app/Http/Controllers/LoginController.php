@@ -23,40 +23,48 @@ class LoginController extends Controller
 
   public function register(Request $request)
   {
-    $request->validate([
-      'name' => ['required'],
-      'email' => ['required', 'email', 'max:255', 'unique:users'],
-      'password' => ['required', 'min:8', 'confirmed'],
-    ]);
+    try {
+      $request->validate([
+        'name' => ['required'],
+        'email' => ['required', 'email', 'max:255', 'unique:users'],
+        'password' => ['required', 'min:8', 'confirmed'],
+      ]);
 
-    $user = User::create([
-      'name' => $request->name,
-      'email' => $request->email,
-      'password' => Hash::make($request->password),
-    ]);
+      $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+      ]);
 
-    auth()->login($user);
+      auth()->login($user);
 
-    return redirect()->route('home')->with('success', 'Registration successful!');
+      return redirect()->route('home')->with('success', 'Registration successful!');
+    } catch (\Throwable $th) {
+      return redirect()->back()->withInput()->with('error', 'Something Wrong,Please Try Again');
+    }
   }
 
   public function loginPost(Request $request)
   {
-    $request->validate([
-      'email' => ['required', 'email'],
-      'password' => ['required'],
-    ]);
+    try {
+      $request->validate([
+        'email' => ['required', 'email'],
+        'password' => ['required'],
+      ]);
 
-    $credentials = $request->only('email', 'password');
+      $credentials = $request->only('email', 'password');
 
-    $result =  Auth::attempt($credentials);
+      $result =  Auth::attempt($credentials);
 
-    if ($result) {
-      return redirect()->route('home');
-    } else {
-      $errors = new MessageBag(['password' => ['Email and/or Password invalid.']]);
+      if ($result) {
+        return redirect()->route('home');
+      } else {
+        $errors = new MessageBag(['password' => ['Email and/or Password invalid.']]);
 
-      return redirect()->back()->withErrors($errors);
+        return redirect()->back()->withErrors($errors);
+      }
+    } catch (\Throwable $th) {
+      return redirect()->back()->withInput()->with('error', 'Something Wrong,Please Try Again');
     }
   }
 
