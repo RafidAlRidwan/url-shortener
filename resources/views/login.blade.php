@@ -14,11 +14,11 @@
             @csrf
             <div class="form-group">
                 <label for="sign-up">Your Email </label>
-                <input name="email" type="text" placeholder="Enter Your Email " id="sign-up">
+                <input required name="email" type="text" placeholder="Enter Your Email " id="sign-up">
             </div>
             <div class="form-group">
                 <label for="pass">Password</label>
-                <input name="password" type="password" placeholder="Enter Your Password" id="pass">
+                <input required name="password" type="password" placeholder="Enter Your Password" id="pass">
             </div>
             @if($errors->any())
             <p style="color: #e60980; text-align: center; margin-bottom:10px"> {{$errors->first()}} </p>
