@@ -4,10 +4,10 @@
 <div class="banner-bg bg_img" data-background="assets/images/banner/banner-bg.jpg">
     <div class="banner-bg-shape"><img src="assets/images/banner/banner-shape.png" alt="banner"></div>
     <div class="round-1">
-        <img src="assets/images/banner/01.png" alt="banner">
+        <img src="{{ asset('assets/images/banner/01.png') }}" alt="banner">
     </div>
     <div class="round-2">
-        <img src="assets/images/banner/02.png" alt="banner">
+        <img src="{{ asset('assets/images/banner/02.png') }}" alt="banner">
     </div>
 </div>
 <div class="container">

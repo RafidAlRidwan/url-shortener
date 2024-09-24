@@ -2,7 +2,7 @@
 
 @section('content')
 
-<!--============= Publisher Section Starts Here =============-->
+
 <div class="publisher-section mt-5">
   <div class="container">
     <div class="row mb-30-none justify-content-center mt--150">
@@ -57,5 +57,5 @@
     </table>
   </div>
 </section>
-<!--============= Payout Section Ends Here =============-->
+
 @endsection
