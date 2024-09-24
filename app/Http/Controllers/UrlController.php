@@ -15,7 +15,7 @@ class UrlController extends Controller
         'original_url' => 'required|url',
       ]);
 
-      $shortUrl = Str::random(6);
+      $shortUrl = Str::random(8);
 
       Url::create([
         'original_url' => $request->input('original_url'),
